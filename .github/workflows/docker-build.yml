@@ -1,0 +1,38 @@
+name: Docker Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Validate docker-compose.yml
+      run: docker-compose config
+    
+    - name: Build containers
+      run: docker-compose build
+    
+    - name: Start services
+      run: docker-compose up -d
+    
+    - name: Wait for services
+      run: sleep 30
+    
+    - name: Check services are running
+      run: docker-compose ps
+    
+    - name: Test website is accessible
+      run: curl -f http://localhost:8080 || exit 1
+    
+    - name: Test Prometheus is accessible
+      run: curl -f http://localhost:9090 || exit 1
+    
+    - name: Cleanup
+      run: docker-compose down

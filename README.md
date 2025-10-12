@@ -41,7 +41,7 @@ This project demonstrates full-stack monitoring capabilities by combining:
 ### Installation
 
 1. **Clone the repository**
-```bash
+
    git clone https://github.com/YOUR-USERNAME/att-monitoring.git
    cd att-monitoring
 
@@ -55,6 +55,8 @@ Verify all services are running
 bash   docker-compose ps
 Access the Services
 ServiceURLCredentialsAT&T Websitehttp://localhost:8080-Prometheushttp://localhost:9090-Grafanahttp://localhost:3000admin / admin
+
+------
 📈 Configure Grafana Dashboard
 
 Open Grafana at http://localhost:3000
@@ -66,15 +68,13 @@ Add Prometheus
 URL: http://prometheus:9090
 Save & Test
 
-
+------
 Import pre-built dashboard:
 
 Go to Dashboards → Import
 Enter dashboard ID: 7587
 Select Prometheus data source
 Click Import
-
-
 
 Or Create Custom Dashboard
 Use these PromQL queries:
@@ -87,7 +87,10 @@ promqlprobe_http_status_code{job="att-website-health"}
 Uptime Percentage (24h):
 promqlavg_over_time(probe_success{job="att-website-health"}[24h]) * 100
 
+----------------------
+
 🏗️ Architecture
+
 ┌─────────────────┐
 │  AT&T Website   │ ← User Access (Port 8080)
 │    (Nginx)      │
@@ -113,7 +116,11 @@ promqlavg_over_time(probe_success{job="att-website-health"}[24h]) * 100
 │    Grafana      │ ← Visualizes data
 │                 │
 └─────────────────┘
+
+------
+
 📁 Project Structure
+
 att-monitoring/
 ├── att-website.html       # AT&T website clone
 ├── docker-compose.yml     # Container orchestration
@@ -125,6 +132,8 @@ att-monitoring/
     ├── dashboard.png
     ├── website.png
     └── prometheus.png
+
+-------    
 🧪 Testing
 Test website monitoring:
 
@@ -163,6 +172,8 @@ Change Ports
 Edit docker-compose.yml:
 yamlports:
   - "8081:80"  # Change external port
+
+------
 📊 Key Metrics Tracked
 
 Uptime SLA: 99.9% availability target
@@ -171,6 +182,8 @@ Error Rate: < 0.1% target
 DNS Resolution: < 50ms target
 Connection Time: < 100ms target
 
+
+-----
 🎓 Skills Demonstrated
 
 DevOps: Docker containerization, Infrastructure as Code
@@ -180,6 +193,8 @@ SRE Practices: SLA tracking, uptime monitoring, incident detection
 Networking: HTTP protocol, DNS, TLS/SSL
 Web Development: Responsive design, modern CSS/JS
 
+
+------
 🚀 Future Enhancements
 
  Add AlertManager for notifications (email, Slack, PagerDuty)
@@ -191,7 +206,9 @@ Web Development: Responsive design, modern CSS/JS
  Add log aggregation with Loki
  Deploy to Kubernetes cluster
 
+------
 🐛 Troubleshooting
+
 Issue: Services won't start
 bashdocker-compose down
 docker-compose up -d
@@ -204,8 +221,13 @@ Issue: Grafana can't connect to Prometheus
 
 Use http://prometheus:9090 (not localhost)
 Verify with: docker-compose logs prometheus
+
+
+------
 📄 License
 This project is open source and available under the MIT License.
+
+-----
 🙏 Acknowledgments
 
 Prometheus documentation
